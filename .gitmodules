@@ -1,0 +1,3 @@
+[submodule "Project 1"]
+	path = Project 1
+	url = https://gitlab.maastrichtuniversity.nl/bcs/graphcoloring.git
