@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 
 class DFA {
     // I'm using a bit of object oriented programming, basically this block defines that all DFAs have a transitionTable and an acceptingStates array.
 
     private ArrayList<HashMap<Character, Integer>> transitionTable; // This is essentially an array of maps. We have one map per state. A map is like an array but more flexible. In this case we can index the map with a character, such as 'w', and get the id of the new state we go to as a result.
 
-    private HashSet<Integer> acceptingStates; // This is a set, if a number is a member then that state is considered accepting, else rejecting.
+    private HashSet<Integer> acceptingStates; // This is a set, if a state id is a member then that state is considered accepting, else rejecting.
 
     // Computers are silly, so we must tell Java to ask for these parameters every time we make a DFA. This is called a constructor.
     public DFA(ArrayList<HashMap<Character, Integer>> _transitionTable, HashSet<Integer> _acceptingStates) {
@@ -35,6 +36,23 @@ class DFA {
         // } We do not need to do it like this as acceptingStates.contains(currentState) is already a boolean
 
         return acceptingStates.contains(currentState);
+    }
+
+    public String exportAsCSV() {
+        String csv = "";
+
+        for (int i=0; i < transitionTable.size(); i++) {
+            HashMap<Character, Integer> map = transitionTable.get(i);
+
+            csv += "S" + i + ",";
+            for (Entry<Character,Integer> entrySet : map.entrySet()) {
+                csv += entrySet.getKey() + ": S" + entrySet.getValue() + ",";
+            }
+
+            csv += "\n";
+        }
+
+        return csv;
     }
 
     // This method IS marked as static. This means that even though it is within the DFA class, we do not call it from a created DFA. Instead, we call it through: DFA.getSecretCodeDFA()
@@ -188,6 +206,8 @@ public class DFATest {
         System.out.println(dfa.checkString("wwwxyzvxyzvwxw"));
         System.out.println(dfa.checkString("wwwwxyzvxyzvwxwy"));
         System.out.println(dfa.checkString("wwwwxyzvxyzvwxwwwwwxyzvxyzvwxw"));
+
+        String test = dfa.exportAsCSV();
     }
 
     public static void main(String[] args) {
