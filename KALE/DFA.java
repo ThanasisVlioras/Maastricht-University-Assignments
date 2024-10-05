@@ -1,11 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Map.Entry;
 
-class DFA {
+public class DFA {
     // I'm using a bit of object oriented programming, basically this block defines that all DFAs have a transitionTable and an acceptingStates array.
 
     private ArrayList<HashMap<Character, Integer>> transitionTable; // This is essentially an array of maps. We have one map per state. A map is like an array but more flexible. In this case we can index the map with a character, such as 'w', and get the id of the new state we go to as a result.
@@ -38,6 +36,8 @@ class DFA {
         return acceptingStates.contains(currentState);
     }
 
+
+    // Exports the transition table as csv, used for the report
     public String exportAsCSV() {
         String csv = "";
 
@@ -154,7 +154,7 @@ class DFA {
     }
 }
 
-public class DFATest {
+class DFATest {
     public static void testHeatwave() {
         // We initialize the DFA using this ugly monstrosity
 
@@ -206,8 +206,6 @@ public class DFATest {
         System.out.println(dfa.checkString("wwwxyzvxyzvwxw"));
         System.out.println(dfa.checkString("wwwwxyzvxyzvwxwy"));
         System.out.println(dfa.checkString("wwwwxyzvxyzvwxwwwwwxyzvxyzvwxw"));
-
-        String test = dfa.exportAsCSV();
     }
 
     public static void main(String[] args) {
