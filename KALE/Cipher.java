@@ -4,6 +4,7 @@ public class Cipher {
 
 
     private String encryptOrDecrypt(String plainText, String key) {
+        if (key.length() == 0) return "No key was given!";
         if (!isKeyAlphabetical(key)) return "Non alphabetical key was given";
         key = key.toLowerCase();
         String cypherText = "";
