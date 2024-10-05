@@ -112,7 +112,7 @@ public class AlienChat {
         if (!metadataPieces[1].equals(VERYSECRETKEY)) return "% The following message uses a different key:\n" + messageWithMetadata;
 
         String decryptedMessage = CIPHER.decrypt(metadataPieces[2], VERYSECRETKEY);
-        return "% The following message " + (validateMessage(decryptedMessage) ? "IS" : "IS NOT") + " from our clan:\n" + decryptedMessage;
+        return "% The following message IS" + (validateMessage(decryptedMessage) ? "" : " NOT") + " from our clan:\n" + decryptedMessage;
     }
 
     /**

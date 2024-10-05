@@ -1,8 +1,8 @@
 public class Cipher {
-    // This is used to validate message metadata. This is the vigenere cipher, so it is set to 5, as canvas states.
-    public final String CypherId = "5";
+    // This is used to validate message metadata. This is the beaufort cipher, so it is set to 9, as canvas states.
+    public final String CypherId = "9";
 
-    private String encryptOrDecrypt(String plainText, String key, boolean decrypt) {
+    private String encryptOrDecrypt(String plainText, String key) {
         if (!isKeyAlphabetical(key)) return "Non alphabetical key was given";
         key = key.toLowerCase();
         String cypherText = "";
@@ -15,11 +15,11 @@ public class Cipher {
             }
 
             int keyValue = key.charAt(keyIndex) - 97;
-            if (decrypt) keyValue = -keyValue;
-
             int zeroIndexedCharacter = (int)character - (isCharUppercase(character) ? 65 : 97);
-            int zeroIndexedEncryptedCharacter = (zeroIndexedCharacter + keyValue) % 26;
+
+            int zeroIndexedEncryptedCharacter = (keyValue - zeroIndexedCharacter) % 26;
             if (zeroIndexedEncryptedCharacter < 0) zeroIndexedEncryptedCharacter += 26;
+
             char finalCharacter =  (char)(zeroIndexedEncryptedCharacter + (isCharUppercase(character) ? 65 : 97));
             cypherText += finalCharacter;
 
@@ -29,8 +29,8 @@ public class Cipher {
         return cypherText;
     }
 
-    public String encrypt(String plainText, String key) { return encryptOrDecrypt(plainText, key, false); }
-    public String decrypt(String plainText, String key) { return encryptOrDecrypt(plainText, key, true); }
+    public String encrypt(String plainText, String key) { return encryptOrDecrypt(plainText, key); }
+    public String decrypt(String plainText, String key) { return encryptOrDecrypt(plainText, key); }
 
     public boolean isCharUppercase(char character) {
         int value = (int)character;
@@ -59,7 +59,7 @@ public class Cipher {
     public static void main(String[] args) {
         Cipher cypher = new Cipher();
 
-        String key = "Ilikebananasalot";
+        String key = "GRUMINIONBaNANA";
 
         String encrypted = cypher.encrypt("Hello, world! Lorem ipsum dolor sis amet", key);
         System.out.println(encrypted);
