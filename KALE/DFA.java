@@ -6,9 +6,11 @@ import java.util.Map.Entry;
 public class DFA {
     // I'm using a bit of object oriented programming, basically this block defines that all DFAs have a transitionTable and an acceptingStates array.
 
-    private ArrayList<HashMap<Character, Integer>> transitionTable; // This is essentially an array of maps. We have one map per state. A map is like an array but more flexible. In this case we can index the map with a character, such as 'w', and get the id of the new state we go to as a result.
+    /** This is essentially an array of maps. We have one map per state. A map is like an array but more flexible. In this case we can index the map with a character, such as 'w', and get the id of the new state we go to as a result. */
+    private ArrayList<HashMap<Character, Integer>> transitionTable;
 
-    private HashSet<Integer> acceptingStates; // This is a set, if a state id is a member then that state is considered accepting, else rejecting.
+    /** This is a set, if a state id is a member then that state is considered accepting, else rejecting. */ 
+    private HashSet<Integer> acceptingStates; 
 
     // Computers are silly, so we must tell Java to ask for these parameters every time we make a DFA. This is called a constructor.
     public DFA(ArrayList<HashMap<Character, Integer>> _transitionTable, HashSet<Integer> _acceptingStates) {
@@ -19,6 +21,7 @@ public class DFA {
     // This method is NOT marked as static. This means that we must first create a DFA (using the constructor) and then call it FROM that DFA.
     // In turn, this allows us to use fields that all DFAs contain such as transitionTable and acceptingStates
     // A scanner is also an object, and scanner.next() is a class method, like checkString is here.
+    /** Checks whether the DFA accepts the given string. */
     public boolean checkString(String string) {
         Integer currentState = 0;
 
@@ -37,7 +40,7 @@ public class DFA {
     }
 
 
-    // Exports the transition table as csv, used for the report
+    /** Exports the transition table as csv, used for the report. */
     public String exportAsCSV() {
         String csv = "";
 
@@ -56,7 +59,7 @@ public class DFA {
     }
 
     // This method IS marked as static. This means that even though it is within the DFA class, we do not call it from a created DFA. Instead, we call it through: DFA.getSecretCodeDFA()
-    // This internally uses the constructor to create and return a DFA that accepts our secret code.
+    /** Internally uses the constructor to create and return a DFA that accepts our secret code. */
     public static DFA getSecretCodeDFA() {
         //transitionTable.get(currentState); // Note that since this is static, it is not called from INSIDE a DFA, thus we do not have fields such as transitionTable available here.
         // Uncomment the above to check the error.
